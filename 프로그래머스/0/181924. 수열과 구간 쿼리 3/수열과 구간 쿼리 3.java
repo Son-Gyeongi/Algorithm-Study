@@ -1,6 +1,5 @@
 class Solution {
     public int[] solution(int[] arr, int[][] queries) {
-        int[] answer = {};
         int temp = 0;
 
         for (int[] query : queries) {
