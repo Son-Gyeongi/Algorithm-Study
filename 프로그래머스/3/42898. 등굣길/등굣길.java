@@ -1,36 +1,20 @@
 class Solution {
-    private int[][] scores;
     public int solution(int m, int n, int[][] puddles) {
-        scores = new int[n][m]; // m 열, n 행
-        scores[0][0] = 1;
-
-        // puddles 배열을 보고 scores 배열에 -1을 저장해서 해당 방해 요소에 이동 안되게 하기
-        for (int[] puddle : puddles) {
-            scores[puddle[1] - 1][puddle[0] - 1] = -1;
+        int[][] dp = new int[m+1][n+1]; // n x m 을 한칸씩 더해서 새로운 배열 만듦
+        for(int i=0;i<puddles.length;i++){
+            dp[puddles[i][0]][puddles[i][1]]=-1;
         }
-
-        return onTheWayToSchool(m, n);
-    }
-
-    public int onTheWayToSchool(int m, int n) {
-
-        // 목적지까지 갈 수 있는 경우의 수 scores에 넣기
-        for (int i = 0; i < scores.length; i++) {
-            for (int j = 0; j < scores[i].length; j++) {
-                if (scores[i][j] == -1) continue;
-
-                if (i > 0 && j > 0) {
-                    int left = scores[i][j - 1] != -1 ? scores[i][j - 1] : 0;
-                    int up = scores[i - 1][j] != -1 ? scores[i - 1][j] : 0;
-                    scores[i][j] = (left % 1_000_000_007) + (up % 1_000_000_007) % 1_000_000_007;
-                } else if (i > 0 && scores[i - 1][0] != -1) {
-                    scores[i][0] = scores[i - 1][0] % 1_000_000_007;
-                } else if (j > 0 && scores[0][j - 1] != -1){ // i == 0
-                    scores[0][j] = scores[0][j - 1] % 1_000_000_007;
+        dp[1][1]=1; 
+        for(int i=1;i<=m;i++){
+            for(int j=1;j<=n;j++){
+                if(dp[i][j]==-1){
+                    dp[i][j]=0; // 새롭게 0을 주는 거도 괜찮군
+                    continue;
                 }
+                if(i!=1)    dp[i][j]+=dp[i-1][j]%1000000007;
+                if(j!=1)    dp[i][j]+=dp[i][j-1]%1000000007;
             }
         }
-
-        return scores[n-1][m-1] % 1_000_000_007;
+        return dp[m][n]%1000000007;
     }
 }
