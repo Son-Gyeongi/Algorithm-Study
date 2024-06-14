@@ -17,6 +17,7 @@ class Solution {
         int temp = 0;
         for (int i=0;i<array.length;i++) {
             if(min == arr[i]) {
+                // 가장 가까운 수가 여러 개일 경우 더 작은 수 구하기
                 if (temp == 0)
                     temp = array[i];
                 answer = Math.min(temp, array[i]);
