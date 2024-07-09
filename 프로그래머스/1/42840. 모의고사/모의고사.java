@@ -34,9 +34,9 @@ class Solution {
             if (index == p3.length) index = 0;
         }
         
-        System.out.println(Arrays.toString(p1Ans));
-        System.out.println(Arrays.toString(p2Ans));
-        System.out.println(Arrays.toString(p3Ans));
+        System.out.println("p1Ans = " + Arrays.toString(p1Ans));
+        System.out.println("p2Ans = " + Arrays.toString(p2Ans));
+        System.out.println("p3Ans = " + Arrays.toString(p3Ans));
         
         // 2. 수포자들의 답과 정답 비교하기
         for (int i=0;i<p1Ans.length;i++) {
@@ -57,7 +57,7 @@ class Solution {
             }
         }
         
-        System.out.println(Arrays.toString(score));
+        System.out.println("score = " + Arrays.toString(score));
         
         // 3. score 배열에서 최대값 찾기
         int max = score[0];
@@ -70,7 +70,7 @@ class Solution {
             if (max == score[i]) ranking.add(i+1);
         }
         
-        System.out.println(ranking);
+        System.out.println("ranking = " + ranking);
         
         // 5. list를 int[] 배열로 바꾸기
         return ranking.stream().mapToInt(i->i).toArray();
