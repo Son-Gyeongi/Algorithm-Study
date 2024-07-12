@@ -1,10 +1,6 @@
-import java.util.*;
-
 class Solution {
     public int solution(int[] nums) {
         int answer = 0;
-        // sum 저장
-        List<Integer> list = new ArrayList<>();
 
         for (int i=0;i<nums.length-2;i++) {
             int a = nums[i];
@@ -16,13 +12,9 @@ class Solution {
                     int c = nums[k];
                     int sum = a + b + c;
                 
-                    list.add(sum);
+                    if (primeNumber(sum)) answer++;
                 }
             }
-        }
-        
-        for (int i=0;i<list.size();i++) {
-            if (primeNumber(list.get(i))) answer++;
         }
 
         return answer;
