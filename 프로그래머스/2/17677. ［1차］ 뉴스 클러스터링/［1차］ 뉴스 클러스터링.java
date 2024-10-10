@@ -20,8 +20,8 @@ class Solution {
         // 저장하기 전에 특수문자가 있는 경우 확인하고 저장 안함
         // 저장하기 전에 문자열을 소문자로 바꾸기
         for (int i=0;i<str1Arr.length-1;i++) { // 공백, 특수문자인 경우 true
-            if (str1Arr[i].matches(".*[\\s[^a-zA-Z]].*") 
-                || str1Arr[i+1].matches(".*[\\s[^a-zA-Z]].*")) continue;
+            if (str1Arr[i].matches(".*[\\s|[^a-zA-Z]].*") 
+                || str1Arr[i+1].matches(".*[\\s|[^a-zA-Z]].*")) continue;
             
             String str = str1Arr[i] + str1Arr[i+1];
             str = str.toLowerCase();
@@ -29,8 +29,8 @@ class Solution {
         }
         
         for (int i=0;i<str2Arr.length-1;i++) {
-            if (str2Arr[i].matches(".*[\\s[^a-zA-Z]].*") 
-                || str2Arr[i+1].matches(".*[\\s[^a-zA-Z]].*")) continue;
+            if (str2Arr[i].matches(".*[\\s|[^a-zA-Z]].*") 
+                || str2Arr[i+1].matches(".*[\\s|[^a-zA-Z]].*")) continue;
             
             String str = str2Arr[i] + str2Arr[i+1];
             str = str.toLowerCase();
@@ -47,16 +47,11 @@ class Solution {
                     int value1 = str1Count.get(key1);
                     int value2 = str2Count.get(key2);
                     
-                    if (value1 == 1 && value2 == 1) {
-                        intersectionCount++;
-                        unionCount++;
-                    } else {
-                        int min = Math.min(value1, value2);
-                        int max = Math.max(value1, value2);
-                        
-                        intersectionCount += min;
-                        unionCount += max;
-                    }
+                    int min = Math.min(value1, value2);
+                    int max = Math.max(value1, value2);
+
+                    intersectionCount += min;
+                    unionCount += max;
                     
                     str1Count.put(key1, 0);
                     str2Count.put(key2, 0);
