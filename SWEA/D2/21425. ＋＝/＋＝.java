@@ -16,13 +16,9 @@ class Solution
             
             int count = 0;
             while (x <= N && y <= N) {
-                if (x <= y) {
-                    x = x + y;
-                    count++;
-                } else {
-                    y = y + x;
-                    count++;
-                }
+                if (x <= y) x = x + y;
+                else y = y + x;
+                count++;
             }
             
             System.out.println(count);
