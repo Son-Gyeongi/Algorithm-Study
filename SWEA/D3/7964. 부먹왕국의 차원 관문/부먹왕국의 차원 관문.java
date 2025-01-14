@@ -24,7 +24,7 @@ class Solution
                 }
             }
             
-            System.out.println("#"+test_case+" "+(n==count?count:answer));
+            System.out.println("#"+test_case+" "+(n==count?count/d:answer));
 		}
 	}
 }
