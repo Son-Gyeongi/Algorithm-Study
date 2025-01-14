@@ -14,15 +14,6 @@ class Solution
             int d = sc.nextInt();
             int count = 0; // 1과 1 사이의 0 개수 구하기
             
-            if (d == 1) {
-                for (int i=0;i<n;i++) {
-                    if (sc.nextInt() == 0) answer++;
-                }
-                
-                System.out.println("#"+test_case+" "+answer);
-                continue;
-            }
-            
             for (int i=0;i<n;i++) {
                 if (sc.nextInt() == 0) count++;
                 else {
@@ -33,7 +24,7 @@ class Solution
                 }
             }
             
-            System.out.println("#"+test_case+" "+answer);
+            System.out.println("#"+test_case+" "+(n==count?count:answer));
 		}
 	}
 }
