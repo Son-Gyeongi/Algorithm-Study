@@ -9,11 +9,6 @@ public class Main {
         int n = sc.nextInt();
         int m = sc.nextInt();
         
-        if (m == 0) {
-            System.out.println(n);
-            return;
-        }
-        
         connect = new int[n+1][n+1];
         visited = new boolean[n+1];
         for (int i=0;i<m;i++) {
