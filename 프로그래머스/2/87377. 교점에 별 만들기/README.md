@@ -1,6 +1,6 @@
 # [level 2] 교점에 별 만들기 - 87377 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/87377) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/87377?language=java) 
 
 ### 성능 요약
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 04월 25일 23:42:06
+2025년 04월 25일 23:42:16
 
 ### 문제 설명
 
