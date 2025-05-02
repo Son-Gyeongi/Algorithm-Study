@@ -1,23 +1,25 @@
-class Solution {    
+class Solution {
     public int[] solution(String s) {
-        int count = 0; // 이진 변환 횟수
-        int zeroCount = 0; // 제거된 0의 갯수        
+        /*
+        1. s길이 계산
+        2. s에서 0을 제거 -> s길이 계산(0제거 후 길이)
+        3. 제거한 0의 개수 세기(zeroCount)
+        4. s의 길이를 2진수로 만들기
+        5. s가 1이 될때까지 반복(count)
+        */
+        int count = 0, zeroCount = 0;
+        int sLength = 0;
         
         while (!s.equals("1")) {
-            int sLength = s.length(); // "1", "0" 의 개수
-            String sOne = s.replace("0", ""); // 0 제거한 String
-            int sOneLength = sOne.length(); // "1"만 있는 개수
-
-            int withoutZero = sLength - sOneLength; // 0 제거 후 길이
-            
-            if (withoutZero != 0) zeroCount += withoutZero;
-            
-            s = Integer.toString(sOneLength, 2); // 이진수로 변환
             count++;
+            sLength = s.length();
+            s = s.replace("0", "");
+            int tmpLength = s.length();
+            zeroCount += sLength - tmpLength;
+            s = Integer.toString(tmpLength, 2);
         }
         
         int[] answer = {count, zeroCount};
-        
         return answer;
     }
 }
