@@ -4,17 +4,20 @@ class Solution {
     public int[] solution(int[] array, int[][] commands) {
         int[] answer = new int[commands.length];
         
-        for (int i=0;i<answer.length;i++) {
-            answer[i] = findNumber(array, commands[i]);
+        for (int x=0;x<commands.length;x++) {
+            List<Integer> list = new ArrayList<>();
+            int i=commands[x][0]-1;
+            int j=commands[x][1]-1;
+            int k=commands[x][2]-1;
+            
+            for (int y=i;y<=j;y++) {
+                list.add(array[y]);
+            }
+            
+            Collections.sort(list); // 정렬
+            answer[x] = list.get(k);
         }
         
         return answer;
     }
-    
-    public int findNumber(int[] array, int[] command) {
-        int[] arr = Arrays.copyOfRange(array, command[0]-1, command[1]);
-        Arrays.sort(arr);
-        
-        return arr[command[2]-1];
-    };
 }
