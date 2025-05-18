@@ -1,17 +1,16 @@
 import java.util.*;
 
 class Solution {
+    public static final int[] mem = new int[100001];
+    public static int fibonacci(int n) {
+        if (mem[n]!=-1) return mem[n]%1234567;
+        if (n==0||n==1) return n%1234567;
+        return mem[n] = fibonacci(n-1)%1234567+fibonacci(n-2)%1234567;
+    }
+    
     public int solution(int n) {
-        int fibo = 0;
-        int first = 0;
-        int second = 1;
-        
-        for(int i=0;i<n-1;i++) {
-            fibo = (first % 1234567 + second % 1234567) % 1234567;
-            first = second % 1234567;
-            second = fibo % 1234567;
-        }
-        
-        return fibo;
+        Arrays.fill(mem, -1);
+        int answer = fibonacci(n)%1234567;
+        return answer;
     }
 }
