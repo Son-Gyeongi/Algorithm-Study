@@ -2,38 +2,33 @@ import java.util.*;
 
 class Solution {
     public int[] solution(int[] progresses, int[] speeds) {
-        List<Integer> answer = new ArrayList<>();
-        int[] addCount = new int[progresses.length];
+        int[] success = new int[progresses.length];
         
         for (int i=0;i<progresses.length;i++) {
-            int progress = progresses[i];
+            int temp = progresses[i];
             
             int count = 0;
-            for (int j=speeds[i];progress<100;) {
-                progress += j;
+            while (temp < 100) {
                 count++;
+                temp += speeds[i];
             }
             
-            addCount[i] = count;
+            success[i] = count;
         }
         
-        Stack<Integer> stack = new Stack<>();
-        stack.push(addCount[0]);
-        int count = 1; // 첫번째 기본값
-        for (int i=1;i<addCount.length;i++) {
-            
-            // stack.peek() 시작 지점과 비교해야 한다.
-            if (stack.peek() >= addCount[i]) {
-                count++;
-            } else {
-                answer.add(count); // 한 번의 비교 작업이 끝난 후
-                stack.clear();
-                stack.push(addCount[i]);
-                count = 1;
-            }
+        List<Integer> list = new ArrayList<>();
+        int dayCount = 1;
+        int standard = success[0];
+        for (int i=1;i<success.length;i++) {
+            if (standard < success[i]) {
+                list.add(dayCount);
+                dayCount = 1;
+                standard = success[i];
+            } else dayCount++;
         }
-        answer.add(count);
+        list.add(dayCount);
         
-        return answer.stream().mapToInt(Integer::intValue).toArray();
+        int[] answer = list.stream().mapToInt(Integer::intValue).toArray();
+        return answer;
     }
 }
