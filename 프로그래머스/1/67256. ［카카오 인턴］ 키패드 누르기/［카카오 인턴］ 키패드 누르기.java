@@ -1,55 +1,50 @@
+import java.util.*;
+
 class Solution {
     public String solution(int[] numbers, String hand) {
+        Map<String, Integer[]> map = new HashMap<>();
+        map.put("1",new Integer[]{0,0});map.put("2",new Integer[]{0,1});map.put("3",new Integer[]{0,2});
+        map.put("4",new Integer[]{1,0});map.put("5",new Integer[]{1,1});map.put("6",new Integer[]{1,2});
+        map.put("7",new Integer[]{2,0});map.put("8",new Integer[]{2,1});map.put("9",new Integer[]{2,2});
+        map.put("*",new Integer[]{3,0});map.put("0",new Integer[]{3,1});map.put("#",new Integer[]{3,2});
+        
         String answer = "";
+        String tempR = "#";
+        String tempL = "*";
         
-        // 키패드의 각 숫자에 대한 좌표 설정
-        int[][] keyPad = {
-            {3, 1}, // 0
-            {0, 0}, // 1
-            {0, 1}, // 2
-            {0, 2}, // 3
-            {1, 0}, // 4
-            {1, 1}, // 5
-            {1, 2}, // 6
-            {2, 0}, // 7
-            {2, 1}, // 8
-            {2, 2}, // 9
-            {3, 0}, // *
-            {3, 2}, // #
-        };
-        
-        // 현재 왼손과 오른손의 위치를 키패드의 좌표로 설정
-        int[] leftPos = {3,0}; // '*' 위치
-        int[] rightPos = {3,2}; // '#' 위치
-        
-        for (int number : numbers) {
-            if (number == 1 || number == 4 || number == 7) {
+        for (int i=0;i<numbers.length;i++) {
+            int num = numbers[i];
+            
+            if (num == 1 || num == 4 || num == 7) {
+                tempL = String.valueOf(num);
                 answer += "L";
-                leftPos = keyPad[number];                
-            } else if (number == 3 || number == 6 || number == 9) {
+            } else if (num == 3 || num == 6 || num == 9) {
+                tempR = String.valueOf(num);
                 answer += "R";
-                rightPos = keyPad[number];
             } else {
-                // 2, 5, 8, 0 인 경우
-                int[] targetPos = keyPad[number];
-                int leftDist = Math.abs(targetPos[0] - leftPos[0])
-                    + Math.abs(targetPos[1] - leftPos[1]);
-                int rightDist = Math.abs(targetPos[0] - rightPos[0])
-                    + Math.abs(targetPos[1] - rightPos[1]);
+                // 거리 계산
+                Integer[] r = map.get(tempR);
+                Integer[] l = map.get(tempL);
+                Integer[] n = map.get(String.valueOf(num));
                 
-                if (leftDist < rightDist) {
-                    answer += "L";
-                    leftPos = targetPos;
-                } else if (leftDist > rightDist) {
+                int diffR = Math.abs(r[0] - n[0])
+                    + Math.abs(r[1] - n[1]);
+                int diffL = Math.abs(l[0] - n[0])
+                    + Math.abs(l[1] - n[1]);
+                
+                if (diffR < diffL) {
+                    tempR = String.valueOf(num);
                     answer += "R";
-                    rightPos = targetPos;
+                } else if (diffR > diffL) {
+                    tempL = String.valueOf(num);
+                    answer += "L";
                 } else {
                     if (hand.equals("right")) {
+                        tempR = String.valueOf(num);
                         answer += "R";
-                        rightPos = targetPos;
                     } else {
+                        tempL = String.valueOf(num);
                         answer += "L";
-                        leftPos = targetPos;
                     }
                 }
             }
