@@ -1,21 +1,18 @@
 class Solution {
-    private int answer = 0;
-
+    public static int answer = 0;
+    
     public int solution(int[] numbers, int target) {
-        countTarget(numbers, 0, target, 0);
-
+        targetNumber(0, numbers, target, 0);
         return answer;
     }
-
-    public void countTarget(int[] numbers, int depth, int target, int total) {
-        if(target == total && numbers.length == depth) {
-            answer++;
+    
+    public static void targetNumber(int num, int[] numbers, int target, int depth) {
+        if (num == target && depth == numbers.length) answer++;
+        if (depth == numbers.length) return;
+        
+        for (int i=depth;i<depth+1;i++) {
+            targetNumber(num+numbers[i], numbers, target, depth+1);
+            targetNumber(num-numbers[i], numbers, target, depth+1);
         }
-
-        if(depth == numbers.length) return;
-
-        // - 인지 + 인지에 따라 다르게
-        countTarget(numbers, depth+1, target, total-numbers[depth]);
-        countTarget(numbers, depth+1, target, total+numbers[depth]);
     }
 }
