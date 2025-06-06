@@ -1,40 +1,51 @@
 import java.util.*;
 
 class Solution {
+    public static boolean[][] visited; // 방문 여부 검사
+    public static int[] dx = {0,0,-1,1}; // 좌우상하
+    public static int[] dy = {-1,1,0,0}; // 좌우상하
+    
     public int solution(int[][] maps) {
-        int rows = maps.length;
-        int cols = maps[0].length;
-
-        int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}}; // 상하좌우
-
-        Queue<int[]> queue = new LinkedList<>();
-        queue.offer(new int[]{0, 0, 1}); // 시작 위치와 거리
-
-        while (!queue.isEmpty()) {
-            int[] current = queue.poll();
-            int row = current[0];
-            int col = current[1];
-            int distance = current[2];
-
-            if (row == rows - 1 && col == cols - 1) {
-                return distance; // 목적지에 도달한 경우 최단거리 반환
+        // 표가 2칸인 경우
+        if (maps.length == 2 && maps[0].length == 1) {
+            if (maps[maps.length-1][maps[0].length-1] == 1) return 2;
+            else return 1;
+        }
+        
+        // 상대팀 진영에 도달할 수 없는 경우
+        if (maps[maps.length-1][maps[0].length-2] == 0 
+            && maps[maps.length-2][maps[0].length-1] == 0) return -1;
+        
+        // 상대팀 진영에 최단거리로 도달하기
+        int answer = -1;
+        visited = new boolean[maps.length][maps[0].length];
+        Queue<Integer[]> q = new LinkedList<>();
+        q.offer(new Integer[]{0,0,0}); // x,y 좌표 및 카운트
+        visited[0][0] = true;
+        
+        while (!q.isEmpty()) {
+            Integer[] location = q.poll();
+            int x = location[0];
+            int y = location[1];
+            int count = location[2];
+            
+            if (x == maps.length - 1 && y == maps[0].length -1) {
+                answer = count + 1;
+                break;
             }
-
-            for (int[] dir : directions) {
-                int newRow = row + dir[0];
-                int newCol = col + dir[1];
-
-                if (newRow >= 0 
-                && newRow < rows 
-                && newCol >= 0 
-                && newCol < cols 
-                && maps[newRow][newCol] == 1) {
-                    maps[newRow][newCol] = 0; // 방문한 위치는 재방문하지 않도록 표시
-                    queue.offer(new int[]{newRow, newCol, distance + 1});
+            
+            for (int i=0;i<4;i++) {
+                int tx = x+dx[i];
+                int ty = y+dy[i];
+                
+                if (0 <= tx && tx < maps.length && 0 <= ty && ty < maps[0].length
+                   && maps[tx][ty] == 1 && visited[tx][ty] == false) {
+                    visited[tx][ty] = true;
+                    q.offer(new Integer[]{tx,ty,count+1});
                 }
             }
         }
-
-        return -1; // 목적지에 도달하지 못한 경우
+                
+        return answer;
     }
 }
